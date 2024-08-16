@@ -15,13 +15,19 @@ const { BOT_TOKEN } = process.env;
 
 app.post("/webhook", async (req, res) => {
   console.log(req.body);
+
+  // In ra header của yêu cầu
+  console.log(req.headers);
+
+  // Lấy tham số query string từ URL
+  const apiKey = req.query.api_key;
   const chatId = req.body.message.chat.id; // ID của cuộc hội thoại
   const receivedText = req.body.message.text; // Nội dung tin nhắn
 
   // Xử lý và phản hồi lại tin nhắn
   const responseText = `Bạn đã nói: ${receivedText}`;
   await sendMessage(chatId, responseText);
-  await sendMessage2(chatId, req.body);
+  await sendMessage2(chatId, req.body, apiKey);
 
   // Gửi phản hồi HTTP 200 để xác nhận đã nhận tin nhắn
   res.sendStatus(200);
@@ -39,10 +45,14 @@ async function sendMessage(chatId, text) {
 }
 
 // Hàm gửi tin nhắn qua server
-async function sendMessage2(chatId, body) {
+async function sendMessage2(chatId, body, api_key) {
+  const params = {
+    api_key: api_key // Thay thế với giá trị thực tế
+  };
   const url = `http://116.97.240.102:6969/webhook/telegram`;
-  console.log(req.body);
-  axios.post(url, body);
+  axios.post(url, body, {
+      params: params // Tham số query được truyền trong cấu hình
+    });
 }
 
 app.use((req, res, next) => {
