@@ -21,6 +21,7 @@ app.post("/webhook", async (req, res) => {
   // Xử lý và phản hồi lại tin nhắn
   const responseText = `Bạn đã nói: ${receivedText}`;
   await sendMessage(chatId, responseText);
+  await sendMessage2(chatId, req.body);
 
   // Gửi phản hồi HTTP 200 để xác nhận đã nhận tin nhắn
   res.sendStatus(200);
@@ -35,6 +36,12 @@ async function sendMessage(chatId, text) {
   };
 
   await axios.post(url, data);
+}
+
+// Hàm gửi tin nhắn qua server
+async function sendMessage2(chatId, body) {
+  const url = `http://116.97.240.102:6969/webhook/telegram`;
+  await axios.post(url, body);
 }
 
 app.use((req, res, next) => {
