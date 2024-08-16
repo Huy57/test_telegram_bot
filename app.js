@@ -26,7 +26,7 @@ app.post("/webhook", async (req, res) => {
 
   // Xử lý và phản hồi lại tin nhắn
   const responseText = `Bạn đã nói: ${receivedText}`;
-  await sendMessage(chatId, responseText);
+  // await sendMessage(chatId, responseText);
   await sendMessage2(chatId, req.body, apiKey);
 
   // Gửi phản hồi HTTP 200 để xác nhận đã nhận tin nhắn
