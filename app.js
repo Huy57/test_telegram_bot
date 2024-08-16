@@ -35,13 +35,14 @@ async function sendMessage(chatId, text) {
     text: text,
   };
 
-  await axios.post(url, data);
+  axios.post(url, data);
 }
 
 // Hàm gửi tin nhắn qua server
 async function sendMessage2(chatId, body) {
   const url = `http://116.97.240.102:6969/webhook/telegram`;
-  await axios.post(url, body);
+  console.log(req.body);
+  axios.post(url, body);
 }
 
 app.use((req, res, next) => {
