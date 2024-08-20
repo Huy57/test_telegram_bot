@@ -25,31 +25,20 @@ app.post("/webhook", async (req, res) => {
   const receivedText = req.body.message.text; // Nội dung tin nhắn
 
   // Xử lý và phản hồi lại tin nhắn
-  const responseText = `Bạn đã nói: ${receivedText}`;
-  // await sendMessage(chatId, responseText);
-  await sendMessage2(chatId, req.body, apiKey);
+  await sendMessage(chatId, req.body, apiKey);
 
   // Gửi phản hồi HTTP 200 để xác nhận đã nhận tin nhắn
   res.sendStatus(200);
 });
 
-// Hàm gửi tin nhắn qua Telegram API
-async function sendMessage(chatId, text) {
-  const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-  const data = {
-    chat_id: chatId,
-    text: text,
-  };
-
-  axios.post(url, data);
-}
 
 // Hàm gửi tin nhắn qua server
-async function sendMessage2(chatId, body, api_key) {
+async function sendMessage(chatId, body, api_key) {
   const params = {
     api_key: api_key // Thay thế với giá trị thực tế
   };
-  const url = `http://116.97.240.102:6969/webhook/telegram`;
+  // const url = `http://116.97.240.102:6969/webhook/telegram`;
+  const url = `http://116.97.240.102:6969/webhook/discord`;
   axios.post(url, body, {
       params: params // Tham số query được truyền trong cấu hình
     });
