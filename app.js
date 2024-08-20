@@ -32,6 +32,12 @@ app.post("/webhook", async (req, res) => {
   res.sendStatus(200);
 });
 
+app.get("/webhook", async (req, res) => {
+  console.log(req);
+  res.sendStatus(200);
+});
+
+
 
 // Hàm gửi tin nhắn qua server
 async function sendMessage(chatId, body, api_key) {
