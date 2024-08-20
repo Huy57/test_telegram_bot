@@ -12,6 +12,7 @@ const app = express();
 app.use(express.json());
 
 const { BOT_TOKEN } = process.env;
+const PORT = process.env.PORT || 3000;
 
 app.post("/webhook", async (req, res) => {
   console.log(req.body);
@@ -50,6 +51,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.listen(8443, () => {
-  console.log(`Server is listening on port: ${8443}`);
+app.listen(PORT, () => {
+    console.log(`Server đang chạy trên cổng ${PORT}`);
 });
