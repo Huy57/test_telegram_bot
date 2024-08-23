@@ -19,6 +19,7 @@ app.post("/webhook", async (req, res) => {
 
   // In ra header của yêu cầu
   console.log(req.headers);
+  console.log(req.query);
 
   // Lấy tham số query string từ URL
   const apiKey = req.query.api_key;
