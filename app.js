@@ -34,7 +34,7 @@ app.post("/webhook", async (req, res) => {
 });
 
 app.get("/webhook", async (req, res) => {
-  console.log("request:",req);
+  console.log("request:",req.query);
   const challenge = req.query.hub.challenge
   return challenge
 });
