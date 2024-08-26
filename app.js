@@ -17,7 +17,19 @@ const PORT = process.env.PORT || 3000;
 app.post("/webhook", async (req, res) => {
   console.log("Tôi đã nhận được tin:",req.body);
   // Trả về phản hồi từ API được chuyển tiếp
-  res.status(200);
+  // Kiểm tra loại yêu cầu (type) từ Discord
+  if (req.body.type === 1) {
+    // Phản hồi cho một ping từ Discord
+    res.status(200).json({ type: 1 });
+  } else {
+    // Xử lý các yêu cầu khác (nếu cần)
+    res.status(200).json({
+      type: 4,
+      data: {
+        content: "Your message has been received!"
+      }
+    });
+  }
 });
 
 app.get("/webhook", async (req, res) => {
