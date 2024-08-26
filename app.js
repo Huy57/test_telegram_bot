@@ -27,9 +27,14 @@ app.post("/webhook", async (req, res) => {
 });
 
 app.get("/webhook", async (req, res) => {
-  console.log("request:",req.query);
-  const challenge = req.hub.challenge
-  return challenge
+  console.log("request:", req.query);
+  const challenge = req.query['hub.challenge'];
+
+  if (challenge) {
+    res.send(challenge);
+  } else {
+    res.status(400).send("Challenge not found");
+  }
 });
 
 
