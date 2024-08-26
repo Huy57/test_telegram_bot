@@ -54,6 +54,13 @@ app.post('/webhook/interactions', (req, res) => {
     res.status(200).send('Received request');
 });
 
+app.get('/webhook/interactions', (req, res) => {
+    console.log("req.body:", req.body)
+    console.log("req.headers:", req.headers)
+
+    res.status(200).send('Received request');
+});
+
 // Cấu hình CORS
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
