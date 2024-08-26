@@ -20,9 +20,6 @@ app.post("/webhook", async (req, res) => {
   // In ra header của yêu cầu
   console.log("api_key:",req.query.api_key);
 
-  // Lấy tham số query string từ URL
-  const apiKey = req.query.api_key;
-
   res.sendStatus(200);
 });
 
