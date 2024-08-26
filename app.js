@@ -15,9 +15,9 @@ const { BOT_TOKEN } = process.env;
 const PORT = process.env.PORT || 3000;
 
 app.post("/webhook", async (req, res) => {
-  console.log("Tôi đã nhận được tin:",req.body.entry[0].changes.value.messages[0].text.body);
-
-  res.sendStatus(200);
+  console.log("Tôi đã nhận được tin:",req.body);
+  // Trả về phản hồi từ API được chuyển tiếp
+  res.status(200);
 });
 
 app.get("/webhook", async (req, res) => {
