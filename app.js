@@ -17,34 +17,6 @@ function verifyRequest(signature, timestamp, body) {
     return nacl.sign.detached.verify(message, signatureBuffer, publicKeyBuffer);
 }
 
-app.post('/webhook', (req, res) => {
-    const signature = req.headers['x-signature-ed25519'];
-    const timestamp = req.headers['x-signature-timestamp'];
-    const rawBody = JSON.stringify(req.body);
-
-    console.log('signature:', signature);
-    console.log('timestamp:', timestamp);
-    console.log('rawBody:', rawBody);
-
-    // Xác thực chữ ký
-    if (!verifyRequest(signature, timestamp, rawBody)) {
-        return res.status(401).send('Invalid request signature');
-    }
-
-    // Xử lý yêu cầu PING từ Discord
-    if (req.body.type === 1) {
-        return res.status(200).json({ type: 1 });
-    }
-
-    // Xử lý các loại yêu cầu khác (như các tương tác từ người dùng)
-    res.status(200).json({
-        type: 4,
-        data: {
-            content: 'This is a response to your command!'
-        }
-    });
-});
-
 app.post('/webhook/interactions', (req, res) => {
     const signature = req.headers['x-signature-ed25519'];
     const timestamp = req.headers['x-signature-timestamp'];
@@ -64,13 +36,22 @@ app.post('/webhook/interactions', (req, res) => {
         return res.status(200).json({ type: 1 });
     }
 
-    // Xử lý các loại yêu cầu khác (như các tương tác từ người dùng)
-    res.status(200).json({
-        type: 4,
-        data: {
-            content: 'This is a response to your command!'
-        }
-    });
+    console.log('Handling interaction of type', req.body.type);
+
+    // Xử lý các yêu cầu từ người dùng
+    if (req.body.type === 2) {
+        const commandName = req.body.data.name;
+        console.log(`Received interaction with command ${commandName}`);
+
+        return res.status(200).json({
+            type: 4,
+            data: {
+                content: `You sent the command: ${commandName}!`
+            }
+        });
+    }
+
+    res.status(200).send('Received request');
 });
 
 // Cấu hình CORS
