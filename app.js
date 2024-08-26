@@ -18,18 +18,11 @@ app.post("/webhook", async (req, res) => {
   console.log(req.body);
 
   // In ra header của yêu cầu
-  console.log(req.headers);
-  console.log(req.query);
+  console.log("api_key:",req.query.api_key);
 
   // Lấy tham số query string từ URL
   const apiKey = req.query.api_key;
-  // const chatId = req.body.message.chat.id; // ID của cuộc hội thoại
-  // const receivedText = req.body.message.text; // Nội dung tin nhắn
 
-  // Xử lý và phản hồi lại tin nhắn
-  // await sendMessage(chatId, req.body, apiKey);
-
-  // Gửi phản hồi HTTP 200 để xác nhận đã nhận tin nhắn
   res.sendStatus(200);
 });
 
