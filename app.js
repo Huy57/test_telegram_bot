@@ -15,7 +15,7 @@ const { BOT_TOKEN } = process.env;
 const PORT = process.env.PORT || 3000;
 
 app.post("/webhook", async (req, res) => {
-  console.log(req.body);
+  console.log("req.body",req.body);
 
   // In ra header của yêu cầu
   console.log("api_key:",req.query.api_key);
